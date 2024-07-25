@@ -32,6 +32,7 @@ $calenderId = $_GET['cal'] ?? 'primary';
             <th>Event Name</th>
             <th>Start Time</th>
             <th>End Time</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -43,8 +44,33 @@ $calenderId = $_GET['cal'] ?? 'primary';
               <td><?= $event->summary ?></td>
               <td><?= date('d M h:i A', strtotime($event->start->dateTime)) ?></td>
               <td><?= date('d M h:i A', strtotime($event->end->dateTime)) ?></td>
+              <td>
+                <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal<?= $event->id ?>">
+                  Delete
+                </button>
+              </td>
             </tr>
-            </tr>
+            <div class="modal fade" id="exampleModal<?= $event->id ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Event</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    Are you sure you want to delete this event?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <form action="<?= BASE_URL . "/actions/deleteEvent.php" ?>" method="POST">
+                      <input type="hidden" name="calendarId" value="<?= $calenderId ?>">
+                      <input type="hidden" name="eventId" value="<?= $event->id ?>">
+                      <button type="submit" class="btn btn-primary" name="delete_event">Yes</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           <?php
           }
           if (count($events) == 0) {

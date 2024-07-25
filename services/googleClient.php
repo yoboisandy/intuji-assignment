@@ -1,5 +1,4 @@
 <?php
-
 namespace Services;
 
 use Google_Client;
@@ -11,8 +10,8 @@ class GoogleClient
 
   public function __construct()
   {
-    require_once './vendor/autoload.php';
-    require_once 'config.php';
+    require_once __DIR__ . '/../vendor/autoload.php';
+    require_once __DIR__ . '/../config.php';
 
     $this->client = new Google_Client();
     $this->client->setClientId(GOOGLE_CLIENT_ID);
@@ -44,5 +43,17 @@ class GoogleClient
     $service = new Google_Service_Calendar($this->client);
     $calendarList = $service->calendarList->listCalendarList();
     return $calendarList;
+  }
+
+  public function deleteEvent($calendarId, $eventId)
+  {
+    try{
+      $this->client->setAccessToken($_SESSION["access_token"]);
+      $service = new Google_Service_Calendar($this->client);
+      $service->events->delete($calendarId, $eventId);
+      return true;
+    } catch (\Exception $e) {
+      return false;
+    }
   }
 }
