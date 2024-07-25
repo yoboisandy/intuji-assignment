@@ -3,7 +3,7 @@ $googleClient = new Services\GoogleClient();
 $calenderId = $_GET['cal'] ?? 'primary';
 ?>
 <div>
-  <div class="text-center">
+  <div class="text-center py-4">
     <h3>Upcoming Events</h3>
   </div>
   <?php if (isset($_SESSION["access_token"])) : ?>
@@ -91,7 +91,10 @@ $calenderId = $_GET['cal'] ?? 'primary';
     </div>
   <?php else: ?>
     <div class="text-center">
-      <a href="<?= OAUTH_REDIRECT_URI ?>" class="btn btn-primary">Login with Google</a>
+      <a href="<?= OAUTH_REDIRECT_URI ?>" class="btn btn-danger">Login with Google</a>
+      <div class="py-3">
+        To view upcoming events
+      </div>
     </div>
   <?php endif; ?>
 </div>
