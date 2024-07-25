@@ -8,7 +8,7 @@ $calenderId = $_GET['cal'] ?? 'primary';
   </div>
   <?php if (isset($_SESSION["access_token"])) : ?>
     <div>
-      <div class="px-1 py-2 border">
+      <div class="p-2 border d-flex justify-content-between align-items-center">
         <ul class="nav nav-pills">
           <li class="nav-item">
             <a class="nav-link <?= $calenderId == 'primary' ? 'active' : '' ?>" aria-current="page" href="<?= BASE_URL . "?cal=primary" ?>">Primary</a>
@@ -25,6 +25,11 @@ $calenderId = $_GET['cal'] ?? 'primary';
           }
           ?>
         </ul>
+        <div>
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Add Event
+          </button>
+        </div>
       </div>
       <table class="table table-bordered">
         <thead>
@@ -76,7 +81,7 @@ $calenderId = $_GET['cal'] ?? 'primary';
           if (count($events) == 0) {
           ?>
             <tr>
-              <td colspan="3" class="text-center">No upcoming events found in this calendar</td>
+              <td colspan="4" class="text-center">No upcoming events found in this calendar</td>
             </tr>
           <?php
           }
@@ -85,4 +90,46 @@ $calenderId = $_GET['cal'] ?? 'primary';
       </table>
     </div>
   <?php endif ?>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <form action="<?= BASE_URL . "/actions/addEvent.php" ?>" method="POST">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Add Event</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="event_name" class="form-label">Event Name</label>
+            <input type="text" class="form-control" id="event_name" name="event_name" required>
+          </div>
+          <div class="mb-3">
+            <label for="start_time" class="form-label">Start Time</label>
+            <input type="datetime-local" class="form-control" id="start_time" name="start_time" required>
+          </div>
+          <div class="mb-3">
+            <label for="end_time" class="form-label">End Time</label>
+            <input type="datetime-local" class="form-control" id="end_time" name="end_time" required>
+          </div>
+          <div class="mb-3">
+            <label for="timezone" class="form-label">Timezone</label>
+            <select class="form-select" id="timezone" name="timezone" required>
+              <option value="Asia/Kolkata">Asia/Kolkata</option>
+              <option value="America/Los_Angeles">America/Los_Angeles</option>
+              <!-- others -->
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+          </div>
+          <input type="hidden" name="calendarId" value="<?= $calenderId ?>">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" name="add_event">Add</button>
+        </div>
+      </div>
+  </form>
 </div>

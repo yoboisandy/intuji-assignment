@@ -1,4 +1,5 @@
 <?php
+
 namespace Services;
 
 use Google_Client;
@@ -47,13 +48,24 @@ class GoogleClient
 
   public function deleteEvent($calendarId, $eventId)
   {
-    try{
+    try {
       $this->client->setAccessToken($_SESSION["access_token"]);
       $service = new Google_Service_Calendar($this->client);
       $service->events->delete($calendarId, $eventId);
       return true;
     } catch (\Exception $e) {
       return false;
+    }
+  }
+
+  public function addEvent($calendarId, $event)
+  {
+    try {
+      $this->client->setAccessToken($_SESSION["access_token"]);
+      $service = new Google_Service_Calendar($this->client);
+      return $service->events->insert($calendarId, $event);
+    } catch (\Exception $e) {
+      return ["error" => $e->getMessage()];
     }
   }
 }
