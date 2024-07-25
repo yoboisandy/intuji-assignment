@@ -4,7 +4,7 @@ $calenderId = $_GET['cal'] ?? 'primary';
 ?>
 <div>
   <div class="text-center">
-    <h3>Google Calendar Events</h3>
+    <h3>Upcoming Events</h3>
   </div>
   <?php if (isset($_SESSION["access_token"])) : ?>
     <div>
@@ -50,7 +50,7 @@ $calenderId = $_GET['cal'] ?? 'primary';
           if (count($events) == 0) {
           ?>
             <tr>
-              <td colspan="3" class="text-center">No events found</td>
+              <td colspan="3" class="text-center">No upcoming events found in this calendar</td>
             </tr>
           <?php
           }

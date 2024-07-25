@@ -1,13 +1,16 @@
 <?php
+
 namespace Services;
 
 use Google_Client;
 use Google_Service_Calendar;
 
-class GoogleClient {
+class GoogleClient
+{
   private $client;
 
-  public function __construct() {
+  public function __construct()
+  {
     require_once './vendor/autoload.php';
     require_once 'config.php';
 
@@ -18,20 +21,25 @@ class GoogleClient {
     $this->client->addScope(GOOGLE_OAUTH_SCOPE);
   }
 
-  public function getClient() {
+  public function getClient()
+  {
     return $this->client;
   }
 
-  public function getEvents($calendarId) {
+  public function getEvents($calendarId)
+  {
     $this->client->setAccessToken($_SESSION["access_token"]);
     $service = new Google_Service_Calendar($this->client);
     $events = $service->events->listEvents($calendarId, [
-      'maxResults' => 10,
+      'orderBy'      => 'startTime',
+      'singleEvents' => true,
+      'timeMin'      => date('c'),
     ]);
-    return $events;
+    return $events->getItems();
   }
 
-  public function getCalenders() {
+  public function getCalenders()
+  {
     $this->client->setAccessToken($_SESSION["access_token"]);
     $service = new Google_Service_Calendar($this->client);
     $calendarList = $service->calendarList->listCalendarList();
