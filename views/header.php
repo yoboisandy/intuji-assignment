@@ -24,8 +24,8 @@ unset($_SESSION["error"]);
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         </ul>
-        <?php if (!isset($_SESSION["code"])) : ?>
-          <a href="<?= $googleOAuthUrl ?>">
+        <?php if (!isset($_SESSION["access_token"])) : ?>
+          <a href="<?= OAUTH_REDIRECT_URI ?>">
             <button class="btn btn-sm btn-primary">
               Signin
             </button>

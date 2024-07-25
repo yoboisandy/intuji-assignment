@@ -12,4 +12,4 @@ define('GOOGLE_CLIENT_SECRET', $_ENV['GOOGLE_CLIENT_SECRET']);
 define('GOOGLE_OAUTH_SCOPE', $_ENV['GOOGLE_OAUTH_SCOPE']);
 define('REDIRECT_URI', $_ENV['REDIRECT_URI']);
 
-$googleOAuthUrl = "https://accounts.google.com/o/oauth2/auth?client_id=" . GOOGLE_CLIENT_ID . "&redirect_uri=" . REDIRECT_URI . "&scope=" . GOOGLE_OAUTH_SCOPE . "&response_type=code&access_type=online";
+define('OAUTH_REDIRECT_URI', "https://accounts.google.com/o/oauth2/auth?client_id=" . GOOGLE_CLIENT_ID . "&redirect_uri=" . REDIRECT_URI . "&scope=" . GOOGLE_OAUTH_SCOPE . "&response_type=code&access_type=online");
