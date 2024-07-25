@@ -25,7 +25,16 @@ class GoogleClient {
   public function getEvents($calendarId) {
     $this->client->setAccessToken($_SESSION["access_token"]);
     $service = new Google_Service_Calendar($this->client);
-    $events = $service->events->listEvents($calendarId);
+    $events = $service->events->listEvents($calendarId, [
+      'maxResults' => 10,
+    ]);
     return $events;
+  }
+
+  public function getCalenders() {
+    $this->client->setAccessToken($_SESSION["access_token"]);
+    $service = new Google_Service_Calendar($this->client);
+    $calendarList = $service->calendarList->listCalendarList();
+    return $calendarList;
   }
 }
