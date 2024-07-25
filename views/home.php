@@ -89,7 +89,11 @@ $calenderId = $_GET['cal'] ?? 'primary';
         </tbody>
       </table>
     </div>
-  <?php endif ?>
+  <?php else: ?>
+    <div class="text-center">
+      <a href="<?= OAUTH_REDIRECT_URI ?>" class="btn btn-primary">Login with Google</a>
+    </div>
+  <?php endif; ?>
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form action="<?= BASE_URL . "/actions/addEvent.php" ?>" method="POST">
